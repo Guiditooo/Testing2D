@@ -8,7 +8,17 @@ public class Gravity : MonoBehaviour
     [SerializeField] private Vector3 reference;
     [SerializeField] private bool useCameraCenterAsGravityCenter = true;
 
+    [SerializeField] private float gravityForce;
+
+    private float gravityAtenuation = 0.1f;
+
+    private PlayerPhysics playerPhysics;
+
     private Vector3 vectorUp;
+    private void Awake()
+    {
+        playerPhysics = GetComponent<PlayerPhysics>();
+    }
     private void Start()
     {
         if (useCameraCenterAsGravityCenter || referenceTransform == null)
@@ -23,17 +33,15 @@ public class Gravity : MonoBehaviour
         vectorUp = transform.position - reference;
         vectorUp.Normalize();
 
+        playerPhysics.Velocity -= gravityForce * gravityAtenuation;
+
     }
 
     private void Update()
     {
         vectorUp = transform.position - reference;
         vectorUp.Normalize();
-    }
-
-    private void LateUpdate()
-    {
         transform.up = vectorUp;
+        playerPhysics.Velocity -= gravityForce * gravityAtenuation;
     }
-
 }

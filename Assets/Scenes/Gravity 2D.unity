@@ -304,6 +304,7 @@ GameObject:
   - component: {fileID: 1300913543}
   - component: {fileID: 1300913544}
   - component: {fileID: 1300913545}
+  - component: {fileID: 1300913546}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -390,8 +391,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a317f54054239204eab4c0cdbd649533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  referenceTransform: {fileID: 713059890}
   reference: {x: 0, y: 0, z: 0}
   useCameraCenterAsGravityCenter: 1
+  gravityForce: 1
 --- !u!114 &1300913544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,8 +408,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalForce: 1
+  maxAcceleration: 4
+  referenceTransform: {fileID: 0}
   velocity: 0
-  maxAcceleration: 5
+  rotateSpeed: 10
 --- !u!114 &1300913545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,3 +424,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25483def330d9d44cada336f4970f978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1300913546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300913540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5594c4d01c7afde4bbef9e2e35346fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: 0
