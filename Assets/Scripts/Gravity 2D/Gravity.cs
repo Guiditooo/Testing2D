@@ -4,44 +4,30 @@ using UnityEngine;
 
 public class Gravity : MonoBehaviour
 {
-    [SerializeField] private Transform referenceTransform;
-    [SerializeField] private Vector3 reference;
-    [SerializeField] private bool useCameraCenterAsGravityCenter = true;
-
     [SerializeField] private float gravityForce;
+    [SerializeField] private Transform targetTransform;
 
-    private float gravityAtenuation = 0.1f;
-
-    private PlayerPhysics playerPhysics;
-
-    private Vector3 vectorUp;
-    private void Awake()
-    {
-        playerPhysics = GetComponent<PlayerPhysics>();
-    }
+    private Vector3 newUp;
     private void Start()
     {
-        if (useCameraCenterAsGravityCenter || referenceTransform == null)
-        {
-            reference = Vector3.zero;
-        }
-        else
-        {
-            reference = referenceTransform.position;
-        }
-
-        vectorUp = transform.position - reference;
-        vectorUp.Normalize();
-
-        playerPhysics.Velocity -= gravityForce * gravityAtenuation;
-
+        GetNewVectorUp();
     }
 
     private void Update()
     {
-        vectorUp = transform.position - reference;
-        vectorUp.Normalize();
-        transform.up = vectorUp;
-        playerPhysics.Velocity -= gravityForce * gravityAtenuation;
+        GetNewVectorUp();
     }
+
+    void LateUpdate()
+    {
+        transform.up = newUp;
+        transform.Translate(transform.up.normalized * -gravityForce*Time.deltaTime);
+    }
+
+    void GetNewVectorUp()
+    {
+        newUp = transform.position - targetTransform.position;
+        newUp.Normalize();
+    }
+
 }
