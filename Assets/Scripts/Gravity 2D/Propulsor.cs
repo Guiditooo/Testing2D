@@ -17,7 +17,7 @@ public class Propulsor : MonoBehaviour
     {
         if (mayMove)
         {
-            transform.Translate(transform.up * propulsionForce * Time.deltaTime);
+            transform.position += transform.up * propulsionForce * Time.deltaTime;
         }
     }
 }

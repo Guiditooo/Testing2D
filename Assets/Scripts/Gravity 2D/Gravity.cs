@@ -21,7 +21,7 @@ public class Gravity : MonoBehaviour
     void LateUpdate()
     {
         transform.up = newUp;
-        transform.Translate(transform.up.normalized * -gravityForce*Time.deltaTime);
+        transform.position -= transform.up.normalized * gravityForce * Time.deltaTime;
     }
 
     void GetNewVectorUp()
