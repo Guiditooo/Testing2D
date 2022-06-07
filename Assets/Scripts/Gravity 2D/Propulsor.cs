@@ -4,20 +4,10 @@ using UnityEngine;
 
 public class Propulsor : MonoBehaviour
 {
-
-    [SerializeField] private float propulsionForce;
-
-    private bool mayMove = false;
-
-    private void Update()
+    [SerializeField] private float propulsionForce = 5;
+    public void Propulsate()
     {
-        mayMove = Input.GetKey(KeyCode.Space);
+        transform.position += transform.up * propulsionForce * Time.deltaTime;
     }
-    private void LateUpdate()
-    {
-        if (mayMove)
-        {
-            transform.position += transform.up * propulsionForce * Time.deltaTime;
-        }
-    }
+
 }

@@ -9,29 +9,24 @@ public class ClampToScreen : MonoBehaviour
     private static Vector3 screenSize;
     private static Vector3 screenSizeVP;
 
-    private List<Vector3> borders = new List<Vector3>();
+    private List<Vector3> borders = new List<Vector3>(); //Lista de Puntos exteriores del sprite
 
     public static Action JustPassedBorder;
+    public static Action JustInsideBorders;
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        CalculateScreenSizes();
     }
 
     private void Update()
     {
         CalculateBorders();
+        CheckBorderCollision();
     }
 
     private void LateUpdate()
     {
         borders.Clear();
-    }
-
-    void CalculateScreenSizes()
-    {
-        screenSize = new Vector3(Screen.width, Screen.height, 0);
-        screenSizeVP = Camera.main.ScreenToViewportPoint(screenSize);
     }
 
     void CalculateBorders()
@@ -46,10 +41,17 @@ public class ClampToScreen : MonoBehaviour
     {
         foreach (Vector3 border in borders)
         {
-            if (border.x < 0  || border.x > 1)
+            if (border.x < 0 || border.x > 1 || border.y < 0 || border.y > 1) //Si algun punto esta fuera de la pantalla
             {
-                JustPassedBorder();
+                Debug.Log("Salgo de la pantalla.");
+                JustPassedBorder?.Invoke(); //Cancelo el movimiento
+                return;
             }
+            else
+            {
+                JustInsideBorders?.Invoke(); //Permito el movimiento
+            }
+
         }
     }
 
