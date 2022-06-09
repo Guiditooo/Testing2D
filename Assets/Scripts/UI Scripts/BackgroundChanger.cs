@@ -14,6 +14,7 @@ public class BackgroundChanger : MonoBehaviour
 
     private void Start()
     {
+        def = image.color;
         buttonClicked = false;
     }
 
